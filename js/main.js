@@ -40,6 +40,7 @@ const getNewRandomArray = (array, newArray) => {  // Содает массив �
   }
   return newArray;
 };
+getNewRandomArray;
 
 let features = () => {
   let newFeatures = [];
@@ -57,7 +58,7 @@ let features = () => {
     }
     // newFeatures.push(getRandomElementArray(FEATURES));
     newFeatures = FEATURES.slice(numberOne, numberTwo);
-  };
+  }
   return newFeatures;
 }
 // console.log(features());
@@ -66,7 +67,7 @@ let photos = () => {
   let newPhotos = [];
   for (let i = 0; i < getRandomLengthArray(PHOTOS); i++) {
     newPhotos.push(getRandomElementArray(PHOTOS));
-  };
+  }
   return newPhotos;
 }
 
@@ -91,10 +92,11 @@ const createRentor = () => {
     location: {
       x: getRandomNumber(35.65000, 35.70000, 5),
       y: getRandomNumber(139.70000, 139.80000, 5),
-    }
+    },
   }
 }
 // console.log(createRentor());
 
 const createRentors = new Array(RENTORS).fill(null).map(() => createRentor());
-console.log(createRentors);
+createRentors;
+// console.log(createRentors);
