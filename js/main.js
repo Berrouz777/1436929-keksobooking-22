@@ -18,7 +18,7 @@ const TYPE = ['palace', 'flat', 'house', 'bungalow'];
 const TITLE = ['Лучшие отзывы', 'Лучшее обслуживание!', 'ХИТ', 'Лучшее соотношение цена/качество', 'Рекомендуем'];
 const CHECK = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const PHOTO = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const RENTORS = 10;
 
 const getRandomNumberArray = (elements) => { // Находит случайный индекс из длинны массива
@@ -41,34 +41,31 @@ const getNewRandomArray = (array, newArray) => {  // Содает массив �
   return newArray;
 };
 
-let numberOne;
-let numberTwo;
-
-for (let i = 0; i < 900; i++) {
-  let randomNumberOne = getRandomNumberArray(FEATURES);
-  let randomNumberTwo = getRandomNumberArray(FEATURES);
-  if (randomNumberOne < randomNumberTwo) {
-    numberOne = randomNumberOne;
-    numberTwo = randomNumberTwo;
-    break;
-  }
-}
-
-// console.log(numberOne, numberTwo);
-
 let features = () => {
-  let newFeatures = []
+  let newFeatures = [];
   for (let i = 0; i < getRandomLengthArray(FEATURES); i++) {
-    newFeatures.push(getRandomElementArray(FEATURES));
-    // newFeatures = FEATURES.slice(numberOne, numberTwo);
+    let numberOne;
+    let numberTwo;
+    for (let i = 0; i < 100; i++) {
+      let randomNumberOne = getRandomNumberArray(FEATURES);
+      let randomNumberTwo = getRandomNumberArray(FEATURES);
+      if (randomNumberOne < randomNumberTwo) {
+        numberOne = randomNumberOne;
+        numberTwo = randomNumberTwo;
+        break;
+      }
+    }
+    // newFeatures.push(getRandomElementArray(FEATURES));
+    newFeatures = FEATURES.slice(numberOne, numberTwo);
   };
   return newFeatures;
 }
+// console.log(features());
 
 let photos = () => {
   let newPhotos = [];
-  for (let i = 0; i < getRandomLengthArray(PHOTO); i++) {
-    newPhotos.push(getRandomElementArray(PHOTO));
+  for (let i = 0; i < getRandomLengthArray(PHOTOS); i++) {
+    newPhotos.push(getRandomElementArray(PHOTOS));
   };
   return newPhotos;
 }
@@ -99,5 +96,5 @@ const createRentor = () => {
 }
 // console.log(createRentor());
 
-const createRentors = new Array(5).fill(null).map(() => createRentor());
+const createRentors = new Array(RENTORS).fill(null).map(() => createRentor());
 console.log(createRentors);
