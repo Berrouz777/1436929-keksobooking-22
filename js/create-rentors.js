@@ -1,4 +1,4 @@
-import {getRandomNumber} from './util.js  ';
+import { getRandomNumber } from './util.js  ';
 
 const TYPES = ['palace', 'flat', 'house', 'bungalow'];
 const TITLES = ['Лучшие отзывы', 'Лучшее обслуживание!', 'ХИТ', 'Лучшее соотношение цена/качество', 'Рекомендуем'];
@@ -68,5 +68,6 @@ const createRentor = () => {
 }
 
 const createRentors = new Array(RENTORS).fill(null).map(() => createRentor());
+createRentors();
 
-export {createRentor, RENTORS};
+export { createRentor, RENTORS };
