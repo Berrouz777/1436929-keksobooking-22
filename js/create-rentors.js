@@ -7,6 +7,21 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const RENTORS = 10;
 
+const getRoom = (room) => {
+  switch (room) {
+    case 'palace':
+      return 'Дворец';
+    case 'flat':
+      return 'Квартира';
+    case 'house':
+      return 'Дом';
+    case 'bungalow':
+      return 'Бунгало';
+    default:
+      return 'На улице :)';
+  }
+}
+
 const getImageRandom = () => {
   let imageRandom = getRandomNumber(1, 8, 0)
   return (imageRandom < 10) ? ('0' + imageRandom) : imageRandom;
@@ -36,9 +51,9 @@ const createRentor = () => {
       title: getRandomElementArray(TITLES),
       address: '{{location.x}}, {{location.y}}',
       price: getRandomNumber(1000, 10000, 0),
-      type: getRandomElementArray(TYPES),
-      rooms: getRandomNumber(1, 7, 0),
-      guests: getRandomNumber(1, 15, 0),
+      type: getRoom(getRandomElementArray(TYPES)),
+      rooms: getRandomNumber(2, 4, 0),
+      guests: getRandomNumber(1, 10, 0),
       checkin: getRandomElementArray(CHECKS),
       checkout: getRandomElementArray(CHECKS),
       features: getNewArray(FEATURES),
@@ -54,6 +69,4 @@ const createRentor = () => {
 
 const createRentors = new Array(RENTORS).fill(null).map(() => createRentor());
 
-export {TYPES, TITLES, CHECKS, FEATURES, PHOTOS, RENTORS};
-export {getImageRandom, getRandomElementArray, getNewArray};
-export {createRentor, createRentors};
+export {createRentor, RENTORS};
