@@ -1,4 +1,4 @@
-import {getRandomNumber} from './util.js  ';
+import { getRandomNumber } from './util.js  ';
 
 const TYPES = ['palace', 'flat', 'house', 'bungalow'];
 const TITLES = ['Лучшие отзывы', 'Лучшее обслуживание!', 'ХИТ', 'Лучшее соотношение цена/качество', 'Рекомендуем'];
@@ -6,6 +6,21 @@ const CHECKS = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const RENTORS = 10;
+
+const getRoom = (room) => {
+  switch (room) {
+    case 'palace':
+      return 'Дворец';
+    case 'flat':
+      return 'Квартира';
+    case 'house':
+      return 'Дом';
+    case 'bungalow':
+      return 'Бунгало';
+    default:
+      return 'На улице :)';
+  }
+}
 
 const getImageRandom = () => {
   let imageRandom = getRandomNumber(1, 8, 0)
@@ -36,9 +51,9 @@ const createRentor = () => {
       title: getRandomElementArray(TITLES),
       address: '{{location.x}}, {{location.y}}',
       price: getRandomNumber(1000, 10000, 0),
-      type: getRandomElementArray(TYPES),
-      rooms: getRandomNumber(1, 7, 0),
-      guests: getRandomNumber(1, 15, 0),
+      type: getRoom(getRandomElementArray(TYPES)),
+      rooms: getRandomNumber(2, 4, 0),
+      guests: getRandomNumber(1, 10, 0),
       checkin: getRandomElementArray(CHECKS),
       checkout: getRandomElementArray(CHECKS),
       features: getNewArray(FEATURES),
@@ -53,7 +68,6 @@ const createRentor = () => {
 }
 
 const createRentors = new Array(RENTORS).fill(null).map(() => createRentor());
+createRentors();
 
-export {TYPES, TITLES, CHECKS, FEATURES, PHOTOS, RENTORS};
-export {getImageRandom, getRandomElementArray, getNewArray};
-export {createRentor, createRentors};
+export { createRentor, RENTORS };
