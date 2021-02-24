@@ -56,3 +56,4 @@ const getAd = () => {
   // mapCanvas.appendChild(fragment);
   mapCanvas.appendChild(newElement);
 }
+getAd();
