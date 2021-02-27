@@ -33,13 +33,16 @@ const getNewArray = (array) => {
 }
 
 const createRentor = () => {
+  const x = getRandomNumber(35.65000, 35.70000, 5);
+  const y = getRandomNumber(139.70000, 139.80000, 5);
+
   return {
     autor: {
       avatar: 'img/avatars/user' + getImageRandom() + '.png',
     },
     offer: {
       title: getRandomElementArray(TITLES),
-      address: '{{location.x}}, {{location.y}}',
+      address: x + ', ' + y,
       price: getRandomNumber(1000, 10000, 0),
       type: getRandomElementArray(Object.values(TYPES)),
       rooms: getRandomNumber(2, 4, 0),
@@ -51,13 +54,12 @@ const createRentor = () => {
       photos: getNewArray(PHOTOS),
     },
     location: {
-      x: getRandomNumber(35.65000, 35.70000, 5),
-      y: getRandomNumber(139.70000, 139.80000, 5),
+      x: x,
+      y: y,
     },
   }
 }
 
 const createRentors = new Array(RENTORS).fill(null).map(() => createRentor());
-createRentors;
 
-export { createRentor, RENTORS };
+export { createRentor, createRentors, RENTORS };
