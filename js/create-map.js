@@ -1,6 +1,6 @@
 import { getIncluded, fieldsets, mapItems } from './form-state.js';
-import { createRentors } from './create-rentors.js';
 import { getAd } from './adding-an-ad.js';
+// import { getData } from './getData.js';
 
 const address = document.querySelector('#address');
 
@@ -12,7 +12,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: 35.68519,
     lng: 139.75724,
-  }, 12);
+  }, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -42,27 +42,38 @@ address.value = Object.values(marker._latlng);
 address.setAttribute('disabled', '');
 marker.addTo(map);
 
-marker.on('moveend', (evt) => {
-  const xY = Object.values(evt.target.getLatLng());
-  address.value = xY[0].toFixed(5) + ',' + xY[1].toFixed(5);
-});
-
-createRentors.forEach((value) => {
-  const icon = L.icon({
-    iconUrl: '../img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+const getPosition = (marker, fact) => {
+  marker.on(fact, (evt) => {
+    const xY = Object.values(evt.target.getLatLng());
+    address.value = xY[0].toFixed(5) + ',' + xY[1].toFixed(5);
   });
+}
 
-  const miniMarker = L.marker(
-    {
-      lat: value.location.x,
-      lng: value.location.y,
-    },
-    {
-      icon: icon,
-    },
-  );
+getPosition(marker, 'moveend');
 
-  miniMarker.addTo(map).bindPopup(getAd(value));
-});
+const getAds = (ad) => {
+  ad.forEach((value) => {
+    const icon = L.icon({
+      iconUrl: '../img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
+    const miniMarker = L.marker(
+      {
+        lat: value.location.lat,
+        lng: value.location.lng,
+      },
+      {
+        icon: icon,
+      },
+    );
+
+    getPosition(miniMarker, 'click');
+
+    miniMarker.addTo(map).bindPopup(getAd(value));
+  });
+};
+
+export { getAds };
+
