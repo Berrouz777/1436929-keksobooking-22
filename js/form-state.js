@@ -1,5 +1,6 @@
+import { addError, addSuccess } from './show-message.js';
+
 const form = document.querySelector('.ad-form');
-const sendData = form.querySelector('.ad-form__submit');
 const fieldsets = form.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapItems = Array.from(mapFilter.children);
@@ -20,18 +21,27 @@ const getIncluded = (array) => {
   })
 };
 
-sendData.addEventListener('click', (evt) => {
+form.addEventListener('submit', (evt) => {
   evt.preventDefault();
+
   const formData = new FormData(evt.target);
 
-  console.log(formData);
+  fetch('https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
+  // .then((response) => response.json())
+  .then((response) => {
+    if (response.ok) {
+      addSuccess();
+      return response;
+    }
 
-  // fetch('https://22.javascript.pages.academy/keksobooking',
-  //   {
-  //     method: 'POST',
-  //     body: formData,
-  //   },
-  // );
+    throw new Error(addError());
+  })
+  .catch((error) => error);
 })
 
 export { getIncluded, fieldsets, mapItems };

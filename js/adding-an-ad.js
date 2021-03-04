@@ -28,18 +28,28 @@ const getAd = (point) => {
 
   const photos = newElement.querySelector('.popup__photos');
 
-  if (point.offer.photos.length === 0) {
-    photos.removeChild(photos.children[0]);
-  }
-  if (point.offer.photos.length === 1) {
-    photos.children[0].src = point.offer.photos;
-  } else {
+  // if (point.offer.photos.length === 0) {
+  //   photos.removeChild(photos.children[0]);
+  // }
+  // if (point.offer.photos.length === 1) {
+  //   photos.children[0].src = point.offer.photos;
+  // } else {
+  //   for (let i = 1; i < point.offer.photos.length; i++) {
+  //     const img = newElement.querySelector('.popup__photo').cloneNode(true);
+  //     photos.appendChild(img);
+  //     photos.children[0].src = point.offer.photos[0];
+  //     photos.children[i].src = point.offer.photos[i];
+  //   }
+  // }
+  if (point.offer.photos.length) {
+    photos.children[0].src = point.offer.photos[0];
     for (let i = 1; i < point.offer.photos.length; i++) {
       const img = newElement.querySelector('.popup__photo').cloneNode(true);
       photos.appendChild(img);
-      photos.children[0].src = point.offer.photos[0];
       photos.children[i].src = point.offer.photos[i];
     }
+  } else {
+    photos.removeChild(photos.children[0]);
   }
 
   return newElement;

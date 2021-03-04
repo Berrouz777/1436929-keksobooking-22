@@ -5,14 +5,14 @@ const getData = fetch('https://22.javascript.pages.academy/keksobooking/data')
 .then((response) => {
   if (response.ok) {
     return response;
-  } else {
-    showMessage('Ошибка! Данные не получены.');
   }
+
+  throw new Error(showMessage('Ошибка! Не удалось получить данные'));
 })
 .then((response) => response.json())
 .then((ads) => {
   getAds(ads);
 })
-.catch((error) => showMessage('Ошибка! Данные не получены.'));
+.catch((error) => error);
 
 export {getData};
