@@ -32,16 +32,16 @@ form.addEventListener('submit', (evt) => {
       body: formData,
     },
   )
-  // .then((response) => response.json())
-  .then((response) => {
-    if (response.ok) {
-      addSuccess();
-      return response;
-    }
+    // .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        addSuccess();
+        return response;
+      }
 
-    throw new Error(addError());
-  })
-  .catch((error) => error);
+      throw new Error(addError());
+    })
+    .catch((error) => error);
 })
 
 export { getIncluded, fieldsets, mapItems };
