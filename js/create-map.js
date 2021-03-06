@@ -39,7 +39,7 @@ const marker = L.marker(
 );
 
 address.value = Object.values(marker._latlng);
-address.setAttribute('disabled', '');
+address.setAttribute('readonly', '');
 marker.addTo(map);
 
 const getPosition = (marker, fact) => {
