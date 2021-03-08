@@ -11,7 +11,7 @@ const getAd = (point) => {
   newElement.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей';
   newElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + point.offer.checkin + ' выезд до ' + point.offer.checkout;
   newElement.querySelector('.popup__description').textContent = point.offer.description;
-  newElement.querySelector('.popup__avatar').src = point.autor.avatar;
+  newElement.querySelector('.popup__avatar').src = point.author.avatar;
   const features = newElement.querySelector('.popup__features');
 
   for (let i = features.children.length - 1; i >= 0; i--) {
@@ -28,18 +28,28 @@ const getAd = (point) => {
 
   const photos = newElement.querySelector('.popup__photos');
 
-  if (point.offer.photos.length === 0) {
-    photos.removeChild(photos.children[0]);
-  }
-  if (point.offer.photos.length === 1) {
-    photos.children[0].src = point.offer.photos;
-  } else {
+  // if (point.offer.photos.length === 0) {
+  //   photos.removeChild(photos.children[0]);
+  // }
+  // if (point.offer.photos.length === 1) {
+  //   photos.children[0].src = point.offer.photos;
+  // } else {
+  //   for (let i = 1; i < point.offer.photos.length; i++) {
+  //     const img = newElement.querySelector('.popup__photo').cloneNode(true);
+  //     photos.appendChild(img);
+  //     photos.children[0].src = point.offer.photos[0];
+  //     photos.children[i].src = point.offer.photos[i];
+  //   }
+  // }
+  if (point.offer.photos.length) {
+    photos.children[0].src = point.offer.photos[0];
     for (let i = 1; i < point.offer.photos.length; i++) {
       const img = newElement.querySelector('.popup__photo').cloneNode(true);
       photos.appendChild(img);
-      photos.children[0].src = point.offer.photos[0];
       photos.children[i].src = point.offer.photos[i];
     }
+  } else {
+    photos.removeChild(photos.children[0]);
   }
 
   return newElement;
