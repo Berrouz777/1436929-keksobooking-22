@@ -10,7 +10,7 @@ const addSuccess = () => {
   main.appendChild(newElementSuccess);
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' || 'Esc') {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       newElementSuccess.classList.add('hidden');
     }
@@ -26,7 +26,7 @@ const addError = () => {
   main.appendChild(newElementError);
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' || 'Esc') {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       newElementError.classList.add('hidden');
     }

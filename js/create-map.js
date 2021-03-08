@@ -45,7 +45,7 @@ marker.addTo(map);
 const getPosition = (marker, fact) => {
   marker.on(fact, (evt) => {
     const xY = Object.values(evt.target.getLatLng());
-    address.value = xY[0].toFixed(5) + ',' + xY[1].toFixed(5);
+    address.value = xY[0].toFixed(5) + ', ' + xY[1].toFixed(5);
   });
 }
 
