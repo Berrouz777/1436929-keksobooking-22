@@ -1,30 +1,72 @@
-const inputPrice = document.querySelector('[name="price"]');
-const selectType = document.querySelector('[name="type"]');
-const form = document.querySelector('.ad-form');
-const formReset = form.querySelector('.ad-form__reset');
+import { addressMarkerArray, marker } from './create-map.js';
 
-formReset.addEventListener('click', (evt) =>{
+const MIN_LENGHT_NAME = 30;
+const MAX_LENGHT_NAME = 100;
+const MAX_PRICE = 1000000;
+
+const userPriceInput = document.querySelector('[name="price"]');
+const userSelectType = document.querySelector('[name="type"]');
+const formMapFilter = document.querySelector('.map__filters');
+const form = document.querySelector('.ad-form');
+const address = form.querySelector('#address');
+const formButtonReset = form.querySelector('.ad-form__reset');
+const userTitleInput = form.querySelector('#title');
+
+const getFieldsEmpty = (evt) => {
   evt.preventDefault();
   form.reset();
-})
+  formMapFilter.reset();
+  address.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
+  marker.setLatLng(
+    {
+      lat: 35.68519,
+      lng: 139.75724,
+    }
+  );
+};
 
-selectType.addEventListener('click', () => {
-  if (selectType.value === 'flat') {
-    inputPrice.setAttribute('min', '1000');
-    inputPrice.placeholder = 1000;
+formButtonReset.addEventListener('click', (evt) =>{
+  getFieldsEmpty(evt);
+});
+
+userSelectType.addEventListener('click', () => {
+  if (userSelectType.value === 'flat') {
+    userPriceInput.min = 1000;
+    userPriceInput.placeholder = 1000;
   }
-  if (selectType.value === 'bungalow') {
-    inputPrice.setAttribute('min', '0');
-    inputPrice.placeholder = 0;
+  if (userSelectType.value === 'bungalow') {
+    userPriceInput.min = 0;
+    userPriceInput.placeholder = 0;
   }
-  if (selectType.value === 'house') {
-    inputPrice.setAttribute('min', '5000');
-    inputPrice.placeholder = 5000;
+  if (userSelectType.value === 'house') {
+    userPriceInput.min = 5000;
+    userPriceInput.placeholder = 5000;
   }
-  if (selectType.value === 'palace') {
-    inputPrice.setAttribute('min', '10000');
-    inputPrice.placeholder = 10000;
+  if (userSelectType.value === 'palace') {
+    userPriceInput.min = 10000;
+    userPriceInput.placeholder = 10000;
   }
-  console.log(inputPrice);
-})
-// console.log(inputPrice);
+});
+
+userPriceInput.addEventListener('input', () => {
+  if (userPriceInput.value > MAX_PRICE) {
+    userPriceInput.setCustomValidity('');
+  }
+  userPriceInput.reportValidity();
+});
+
+userTitleInput.addEventListener('input', () => {
+  const titleLength = title.value.length;
+
+  if (titleLength < MIN_LENGHT_NAME) {
+    userTitleInput.setCustomValidity('Ещё ' + (MIN_LENGHT_NAME - titleLength) + ' симв.');
+  }
+  else if (titleLength > MAX_LENGHT_NAME) {
+    userTitleInput.setCustomValidity('Удалите ' + (titleLength - MAX_LENGHT_NAME) + ' симв.')
+  } else {
+    userTitleInput.setCustomValidity('');
+  }
+  userTitleInput.reportValidity();
+});
+
+export { getFieldsEmpty };

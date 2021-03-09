@@ -31,4 +31,8 @@ const showMessage = (message) => {
   }, 3000);
 }
 
-export {getRandomNumber, showMessage};
+const isUseEsc = (evt) => {
+  return evt.key === ('Escape' || 'Esc');
+}
+
+export {getRandomNumber, showMessage, isUseEsc};
