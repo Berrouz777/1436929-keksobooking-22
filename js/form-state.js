@@ -10,6 +10,7 @@ const getDisabled = (array) => {
     value.parentElement.classList.add('ad-form--disabled');
   })
 };
+
 getDisabled(fieldsets);
 getDisabled(mapItems);
 
