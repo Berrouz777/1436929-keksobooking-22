@@ -38,8 +38,7 @@ const marker = L.marker(
   },
 );
 
-const addressMarkerArray = Object.values(marker._latlng);
-address.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
+address.value = Object.values(marker._latlng);
 address.setAttribute('readonly', '');
 marker.addTo(map);
 
