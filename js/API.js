@@ -4,7 +4,7 @@ import { showMessage } from './util.js';
 
 const form = document.querySelector('.ad-form');
 
-const getData = fetch('https://22.javascript.pages.academy/keksobooking/data')
+fetch('https://22.javascript.pages.academy/keksobooking/data')
   .then((response) => {
     if (response.ok) {
       return response;
@@ -19,24 +19,24 @@ const getData = fetch('https://22.javascript.pages.academy/keksobooking/data')
   .catch((error) => error);
 
 
-// form.addEventListener('submit', (evt) => {
-//   evt.preventDefault();
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
 
-//   const formData = new FormData(evt.target);
+  const formData = new FormData(evt.target);
 
-//   fetch('https://22.javascript.pages.academy/keksobooking',
-//     {
-//       method: 'POST',
-//       body: formData,
-//     },
-//   )
-//     .then((response) => {
-//       if (response.ok) {
-//         getMessageSuccess();
-//         return response;
-//       }
+  fetch('https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        getMessageSuccess();
+        return response;
+      }
 
-//       throw new Error(getMessageError());
-//     })
-//     .catch((error) => error);
-// })
+      throw new Error(getMessageError());
+    })
+    .catch((error) => error);
+})
