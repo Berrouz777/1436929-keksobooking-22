@@ -13,7 +13,6 @@ const getData = (onSuccess) => {
     })
     .then((response) => response.json())
     .then((ads) => {
-      console.log(ads)
       onSuccess(ads.slice(0, MAX_ADS_COUNT));
     })
     .catch((error) => error);

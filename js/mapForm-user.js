@@ -7,6 +7,8 @@ const userHousingPrice = mapFilter.querySelector('#housing-price');
 const userHousingRooms = mapFilter.querySelector('#housing-rooms');
 const userHousingGuests = mapFilter.querySelector('#housing-guests');
 
+const TIME_DEBOUNCE = 500;
+
 const getMapFilterValue = (offers) => {
   const getMapFilterFeatures = (offers) => {
     const checkedFeatures = Array.from(mapFilter.querySelectorAll('.map__checkbox:checked'));
@@ -30,7 +32,7 @@ const getMapFilterValue = (offers) => {
     } else if (userHousingPrice.value === 'middle') {
       return item.offer.price >= 10000 && item.offer.price <= 50000;
     } else {
-      return item;
+      return true;
     }
   }
 
@@ -42,10 +44,11 @@ const getMapFilterValue = (offers) => {
     } else if (select.value === num3.toString()) {
       return item === num3;
     } else {
-      return item;
+      return true;
     }
   }
-  const getAdsThroughDebounce = _.debounce((array) => getAds(array), 500);
+
+  const getAdsThroughDebounce = _.debounce((array) => getAds(array), TIME_DEBOUNCE);
 
   mapFilter.addEventListener('change', () => {
     const newArray = [];
