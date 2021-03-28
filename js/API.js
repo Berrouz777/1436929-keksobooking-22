@@ -1,42 +1,40 @@
-import { getMessageError, getMessageSuccess } from './show-message.js';
-import { getAds } from './create-map.js';
 import { showMessage } from './util.js';
 
-const form = document.querySelector('.ad-form');
+const MAX_ADS_COUNT = 10;
 
-fetch('https://22.javascript.pages.academy/keksobooking/data')
-  .then((response) => {
-    if (response.ok) {
-      return response;
-    }
+const getData = (onSuccess) => {
+  fetch('https://22.javascript.pages.academy/keksobooking/data')
+    .then((response) => {
+      if (response.ok) {
+        return response;
+      }
 
-    throw new Error(showMessage('Ошибка! Не удалось получить данные'));
-  })
-  .then((response) => response.json())
-  .then((ads) => {
-    getAds(ads);
-  })
-  .catch((error) => error);
+      throw new Error(showMessage('Ошибка! Не удалось получить данные'));
+    })
+    .then((response) => response.json())
+    .then((ads) => {
+      console.log(ads)
+      onSuccess(ads.slice(0, MAX_ADS_COUNT));
+    })
+    .catch((error) => error);
+};
 
-
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-
-  const formData = new FormData(evt.target);
-
+const sendData = (onSuccess, onFail, body) => {
   fetch('https://22.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
-      body: formData,
+      body,
     },
   )
     .then((response) => {
       if (response.ok) {
-        getMessageSuccess();
+        onSuccess();
         return response;
       }
 
-      throw new Error(getMessageError());
+      throw new Error(onFail());
     })
     .catch((error) => error);
-})
+};
+
+export { getData, sendData };

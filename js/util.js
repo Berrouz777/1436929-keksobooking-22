@@ -1,13 +1,13 @@
-const getRandomNumber = (min, max, fracNumber) => {
-  let randomNumber = (Math.random() * (max - min) + min).toFixed(fracNumber);
-  if (max < min) {
-    return 'Ошибка! ' + max + ' меньше ' + min;
-  }
-  if (max == min) {
-    return 'Ошибка! ' + max + ' равно ' + min;
-  }
-  return randomNumber;
-}
+// const getRandomNumber = (min, max, fracNumber) => {
+//   let randomNumber = (Math.random() * (max - min) + min).toFixed(fracNumber);
+//   if (max < min) {
+//     return 'Ошибка! ' + max + ' меньше ' + min;
+//   }
+//   if (max == min) {
+//     return 'Ошибка! ' + max + ' равно ' + min;
+//   }
+//   return randomNumber;
+// }
 
 const showMessage = (message) => {
   const containerMessage = document.createElement('div');
@@ -35,4 +35,4 @@ const isUseEsc = (evt) => {
   return evt.key === ('Escape' || 'Esc');
 }
 
-export {getRandomNumber, showMessage, isUseEsc};
+export {showMessage, isUseEsc};

@@ -1,4 +1,6 @@
 import { addressMarkerArray, marker } from './create-map.js';
+import { getMessageError, getMessageSuccess } from './show-message.js';
+import {sendData} from './API.js';
 
 const MIN_LENGHT_NAME = 30;
 const MAX_LENGHT_NAME = 100;
@@ -161,6 +163,16 @@ userTitleInput.addEventListener('input', () => {
     userTitleInput.setCustomValidity('');
   }
   userTitleInput.reportValidity();
+});
+
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  sendData(
+    () => getMessageSuccess(),
+    () => getMessageError(),
+    new FormData(evt.target),
+  );
 });
 
 export { getFieldsEmpty };

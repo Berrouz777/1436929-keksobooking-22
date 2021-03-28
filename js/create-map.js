@@ -1,6 +1,6 @@
+/* global L:readonly */
 import { getIncluded, fieldsets, mapItems } from './form-state.js';
 import { getAd } from './adding-an-ad.js';
-// import { getData } from './getData.js';
 
 const address = document.querySelector('#address');
 
@@ -52,28 +52,45 @@ const getPosition = (marker, fact) => {
 
 getPosition(marker, 'moveend');
 
-const getAds = (ad) => {
-  ad.forEach((value) => {
-    const icon = L.icon({
-      iconUrl: '../img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
+const icon = L.icon({
+  iconUrl: '../img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 
-    const miniMarker = L.marker(
-      {
-        lat: value.location.lat,
-        lng: value.location.lng,
-      },
-      {
-        icon: icon,
-      },
-    );
+const miniMarker = (x, y) => L.marker(
+  {
+    lat: x,
+    lng: y,
+  },
+  {
+    icon: icon,
+  },
+).addTo(map);
 
-    getPosition(miniMarker, 'click');
-
-    miniMarker.addTo(map).bindPopup(getAd(value));
+const getRemoveMarkers = (arrayMarkers) => {
+  arrayMarkers.forEach((value) => {
+    map.removeLayer(value);
   });
+}
+
+let arrayMarkers = [];
+
+const getAds = (ad) => {
+  getRemoveMarkers(arrayMarkers);
+
+  arrayMarkers = [];
+
+  ad.forEach((value) => {
+    const getMiniMarker = miniMarker(value.location.lat, value.location.lng);
+
+    getPosition(getMiniMarker, 'click');
+
+    getMiniMarker.bindPopup(getAd(value));
+
+    arrayMarkers.push(getMiniMarker);
+  });
+  return arrayMarkers;
 };
 
-export { getAds, addressMarkerArray, marker };
+export { getAds, addressMarkerArray, map, marker, miniMarker, getRemoveMarkers, arrayMarkers };
