@@ -41,5 +41,4 @@ const getAd = (point) => {
 
   return newElement;
 }
-
 export { getAd };
