@@ -28,8 +28,6 @@ newElementSuccess.classList.add('hidden');
 main.appendChild(newElementSuccess);
 
 const getMessageSuccess = () => {
-  // const newElementSuccess = messageSuccess.cloneNode(true);
-  // main.appendChild(newElementSuccess);
   newElementSuccess.classList.remove('hidden');
 
   document.addEventListener('keydown', onMessageSuccessEscKey);
@@ -54,8 +52,6 @@ const onMessageErrorEscKey = (evt) => {
 };
 
 const getMessageError = () => {
-  // const newElementError = messageError.cloneNode(true);
-  // main.appendChild(newElementError);
   newElementError.classList.remove('hidden');
 
   document.addEventListener('keydown', onMessageErrorEscKey);

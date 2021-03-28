@@ -28,16 +28,6 @@ const getFieldsEmpty = (evt) => {
 
   userTimeoutSelect.children[0].selected = true;
 
-  // userSelectCapacity.value = '1';
-  // userSelectCapacity.children[2].selected = true;
-  // userSelectCapacity.children[0].disabled = true;
-  // userSelectCapacity.children[1].disabled = true;
-  // userSelectCapacity.children[3].disabled = true;
-  // userSelectCapacity.children[0].removeAttribute('selected');
-  // userSelectCapacity.children[1].removeAttribute('selected');
-  // userSelectCapacity.children[3].removeAttribute('selected');
-  // userSelectCapacity.children[2].removeAttribute('disabled');
-
   addressInput.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
   marker.setLatLng(
     {

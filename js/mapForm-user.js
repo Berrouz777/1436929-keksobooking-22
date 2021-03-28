@@ -67,40 +67,6 @@ const getMapFilterValue = (offers) => {
       getAdsThroughDebounce(newArray);
     })
   })
-
-
-
-  //   userHousingRooms.addEventListener('change', () => {
-  //     if (userHousingRooms.value === '3') {
-  //       const adds = offers.filter(value => value.offer.rooms === 3);
-  //       getAds(adds);
-  //     } else if (userHousingRooms.value === '2') {
-  //       const adds = offers.filter(value => value.offer.rooms === 2);
-  //       getAds(adds);
-  //     } else if (userHousingRooms.value === '1') {
-  //       const adds = offers.filter(value => value.offer.rooms === 1);
-  //       getAds(adds);
-  //     } else {
-  //       const adds = offers.filter(value => value);
-  //       getAds(adds);
-  //     }
-  //   });
-
-  //   userHousingGuests.addEventListener('change', () => {
-  //     if (userHousingGuests.value === '0') {
-  //       const adds = offers.filter(value => value.offer.guests === 0);
-  //       getAds(adds);
-  //     } else if (userHousingGuests.value === '1') {
-  //       const adds = offers.filter(value => value.offer.guests === 1);
-  //       getAds(adds);
-  //     } else if (userHousingGuests.value === '2') {
-  //       const adds = offers.filter(value => value.offer.guests === 2);
-  //       getAds(adds);
-  //     } else {
-  //       const adds = offers.filter(value => value);
-  //       getAds(adds);
-  //     }
-  //   });
 }
 
 export { getMapFilterValue };
