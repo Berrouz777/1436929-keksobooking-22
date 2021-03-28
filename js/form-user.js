@@ -108,15 +108,15 @@ const getAttrSelectedTime = (selectTimeout, selectTimein, child1, child2, child3
 };
 
 const onSelectTimeChangeValue = (selectTime) => (evt) => {
-  if (evt.target.value == '12:00') {
+  if (evt.target.value ==+ '12:00') {
     selectTime.value = '12:00';
 
     getAttrSelectedTime(userTimeoutSelect, userTimeinSelect, 0, 1, 2);
-  } else if (evt.target.value == '13:00') {
+  } else if (evt.target.value ==+ '13:00') {
     selectTime.value = '13:00';
 
     getAttrSelectedTime(userTimeoutSelect, userTimeinSelect, 1, 2, 0);
-  } else if (evt.target.value == '14:00') {
+  } else if (evt.target.value === '14:00') {
     selectTime.value = '14:00';
 
     getAttrSelectedTime(userTimeoutSelect, userTimeinSelect, 2, 1, 0);
