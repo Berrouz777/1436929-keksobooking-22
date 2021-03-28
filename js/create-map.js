@@ -38,14 +38,15 @@ const marker = L.marker(
   },
 );
 
-address.value = Object.values(marker._latlng);
+const addressMarkerArray = Object.values(marker._latlng);
+address.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
 address.setAttribute('readonly', '');
 marker.addTo(map);
 
 const getPosition = (marker, fact) => {
   marker.on(fact, (evt) => {
     const xY = Object.values(evt.target.getLatLng());
-    address.value = xY[0].toFixed(5) + ',' + xY[1].toFixed(5);
+    address.value = xY[0].toFixed(5) + ', ' + xY[1].toFixed(5);
   });
 }
 
@@ -75,5 +76,4 @@ const getAds = (ad) => {
   });
 };
 
-export { getAds };
-
+export { getAds, addressMarkerArray, marker };
