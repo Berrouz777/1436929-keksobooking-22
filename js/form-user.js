@@ -1,4 +1,6 @@
 import { addressMarkerArray, marker } from './create-map.js';
+import { getMessageError, getMessageSuccess } from './show-message.js';
+import {sendData} from './API.js';
 
 const MIN_LENGHT_NAME = 30;
 const MAX_LENGHT_NAME = 100;
@@ -22,25 +24,19 @@ const getFieldsEmpty = (evt) => {
   formMapFilter.reset();
   userPriceInput.placeholder = 1000;
 
-  userTimeinSelect.value = '12:00';
-  userTimeinSelect.children[0].setAttribute('selected', '');
-  userTimeinSelect.children[1].removeAttribute('selected');
-  userTimeinSelect.children[2].removeAttribute('selected');
+  userTimeinSelect.children[0].selected = true;
 
-  userTimeoutSelect.value = '12:00';
-  userTimeoutSelect.children[0].setAttribute('selected', '');
-  userTimeoutSelect.children[1].removeAttribute('selected');
-  userTimeoutSelect.children[2].removeAttribute('selected');
+  userTimeoutSelect.children[0].selected = true;
 
-  userSelectCapacity.value = '1';
-  userSelectCapacity.children[2].setAttribute('selected', '');
-  userSelectCapacity.children[0].setAttribute('disabled', '');
-  userSelectCapacity.children[1].setAttribute('disabled', '');
-  userSelectCapacity.children[3].setAttribute('disabled', '');
-  userSelectCapacity.children[0].removeAttribute('selected');
-  userSelectCapacity.children[1].removeAttribute('selected');
-  userSelectCapacity.children[3].removeAttribute('selected');
-  userSelectCapacity.children[2].removeAttribute('disabled');
+  // userSelectCapacity.value = '1';
+  // userSelectCapacity.children[2].selected = true;
+  // userSelectCapacity.children[0].disabled = true;
+  // userSelectCapacity.children[1].disabled = true;
+  // userSelectCapacity.children[3].disabled = true;
+  // userSelectCapacity.children[0].removeAttribute('selected');
+  // userSelectCapacity.children[1].removeAttribute('selected');
+  // userSelectCapacity.children[3].removeAttribute('selected');
+  // userSelectCapacity.children[2].removeAttribute('disabled');
 
   addressInput.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
   marker.setLatLng(
@@ -75,37 +71,36 @@ userSelectType.addEventListener('change', () => {
 });
 
 userSelectRooms.addEventListener('change', () => {
-  const capacityArray = Array.from(userSelectCapacity.children);
+  const capacityArray = userSelectCapacity.querySelectorAll('option');
 
-  if (userSelectRooms.value == 3) {
-    capacityArray[0].removeAttribute('disabled');
-    capacityArray[1].removeAttribute('disabled');
-    capacityArray[2].removeAttribute('disabled');
-    capacityArray[3].setAttribute('disabled', '');
+  if (Number(userSelectRooms.value) === 3) {
+    capacityArray[0].disabled = false;
+    capacityArray[1].disabled = false;
+    capacityArray[2].disabled = false;
+    capacityArray[3].disabled = true;
 
-    capacityArray[3].removeAttribute('selected');
-  } else if (userSelectRooms.value == 2) {
-    capacityArray[0].setAttribute('disabled', '');
-    capacityArray[1].removeAttribute('disabled');
-    capacityArray[2].removeAttribute('disabled');
-    capacityArray[3].setAttribute('disabled', '');
+    capacityArray[0].selected = true;
+  } else if (Number(userSelectRooms.value) === 2) {
+    capacityArray[0].disabled = true;
+    capacityArray[1].disabled = false;
+    capacityArray[2].disabled = false;
+    capacityArray[3].disabled = true;
 
-    capacityArray[3].removeAttribute('selected');
-  } else if (userSelectRooms.value == 1) {
-    capacityArray[0].setAttribute('disabled', '');
-    capacityArray[1].setAttribute('disabled', '');
-    capacityArray[3].setAttribute('disabled', '');
-    capacityArray[2].removeAttribute('disabled');
+    capacityArray[1].selected = true;
+  } else if (Number(userSelectRooms.value) === 1) {
+    capacityArray[0].disabled = true;
+    capacityArray[1].disabled = true;
+    capacityArray[3].disabled = true;
+    capacityArray[2].disabled = false;
 
-    capacityArray[3].removeAttribute('selected');
-    capacityArray[2].setAttribute('selected', '');
-  } else if (userSelectRooms.value == 100) {
-    capacityArray[0].setAttribute('disabled', '');
-    capacityArray[1].setAttribute('disabled', '');
-    capacityArray[2].setAttribute('disabled', '');
-    capacityArray[3].removeAttribute('disabled');
+    capacityArray[2].selected = true;
+  } else if (Number(userSelectRooms.value) === 100) {
+    capacityArray[0].disabled = true;
+    capacityArray[1].disabled = true;
+    capacityArray[2].disabled = true;
+    capacityArray[3].disabled = false;
 
-    capacityArray[3].setAttribute('selected', '');
+    capacityArray[3].selected = true;
   }
 });
 
@@ -161,6 +156,16 @@ userTitleInput.addEventListener('input', () => {
     userTitleInput.setCustomValidity('');
   }
   userTitleInput.reportValidity();
+});
+
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  sendData(
+    () => getMessageSuccess(),
+    () => getMessageError(),
+    new FormData(evt.target),
+  );
 });
 
 export { getFieldsEmpty };
