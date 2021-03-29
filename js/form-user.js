@@ -1,4 +1,4 @@
-import { addressMarkerArray, marker } from './create-map.js';
+import { addressMarkerArray, createMarker } from './create-map.js';
 import { getMessageError, getMessageSuccess } from './show-message.js';
 import {sendData} from './API.js';
 
@@ -29,7 +29,7 @@ const getFieldsEmpty = (evt) => {
   userTimeoutSelect.children[0].selected = true;
 
   addressInput.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
-  marker.setLatLng(
+  createMarker.setLatLng(
     {
       lat: 35.68519,
       lng: 139.75724,

@@ -22,12 +22,12 @@ L.tileLayer(
 ).addTo(map);
 
 const mainIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: '/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
-const marker = L.marker(
+const createMarker = L.marker(
   {
     lat: 35.68519,
     lng: 139.75724,
@@ -38,10 +38,10 @@ const marker = L.marker(
   },
 );
 
-const addressMarkerArray = Object.values(marker._latlng);
+const addressMarkerArray = Object.values(createMarker._latlng);
 address.value = addressMarkerArray[0] + ', ' + addressMarkerArray[1];
 address.setAttribute('readonly', '');
-marker.addTo(map);
+createMarker.addTo(map);
 
 const getPosition = (marker, fact) => {
   marker.on(fact, (evt) => {
@@ -50,15 +50,15 @@ const getPosition = (marker, fact) => {
   });
 }
 
-getPosition(marker, 'moveend');
+getPosition(createMarker, 'moveend');
 
 const icon = L.icon({
-  iconUrl: '../img/pin.svg',
+  iconUrl: '/img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-const miniMarker = (x, y) => L.marker(
+const createMiniMarker = (x, y) => L.marker(
   {
     lat: x,
     lng: y,
@@ -82,7 +82,7 @@ const getAds = (ad) => {
   arrayMarkers = [];
 
   ad.forEach((value) => {
-    const getMiniMarker = miniMarker(value.location.lat, value.location.lng);
+    const getMiniMarker = createMiniMarker(value.location.lat, value.location.lng);
 
     getPosition(getMiniMarker, 'click');
 
@@ -93,4 +93,4 @@ const getAds = (ad) => {
   return arrayMarkers;
 };
 
-export { getAds, addressMarkerArray, map, marker, miniMarker, getRemoveMarkers, arrayMarkers };
+export { getAds, addressMarkerArray, map, createMarker, getRemoveMarkers, arrayMarkers };

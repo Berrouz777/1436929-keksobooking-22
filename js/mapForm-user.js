@@ -1,13 +1,16 @@
 /* global _:readonly */
 import { getAds } from './create-map.js';
 
+const TIME_DEBOUNCE = 500;
+const MAX_LENGHT_ARRAY = 10;
+
 const mapFilter = document.querySelector('.map__filters');
 const userHousingType = mapFilter.querySelector('#housing-type');
 const userHousingPrice = mapFilter.querySelector('#housing-price');
 const userHousingRooms = mapFilter.querySelector('#housing-rooms');
 const userHousingGuests = mapFilter.querySelector('#housing-guests');
 
-const TIME_DEBOUNCE = 500;
+const priceValues = [50000, 10000];
 
 const getMapFilterValue = (offers) => {
   const getMapFilterFeatures = (offers) => {
@@ -26,11 +29,11 @@ const getMapFilterValue = (offers) => {
 
   const isHousingPrice = (item) => {
     if (userHousingPrice.value === 'high') {
-      return item.offer.price > 50000;
+      return item.offer.price > priceValues[0];
     } else if (userHousingPrice.value === 'low') {
-      return item.offer.price < 10000;
+      return item.offer.price < priceValues[1];
     } else if (userHousingPrice.value === 'middle') {
-      return item.offer.price >= 10000 && item.offer.price <= 50000;
+      return item.offer.price >= priceValues[1] && item.offer.price <= priceValues[0];
     } else {
       return true;
     }
@@ -51,7 +54,7 @@ const getMapFilterValue = (offers) => {
   const getAdsThroughDebounce = _.debounce((array) => getAds(array), TIME_DEBOUNCE);
 
   mapFilter.addEventListener('change', () => {
-    const newArray = [];
+    const newArrayValues = [];
     offers.some((offer) => {
       if (isHousingType(offer) &&
         isHousingPrice(offer) &&
@@ -59,12 +62,12 @@ const getMapFilterValue = (offers) => {
         isHousingRoomsOrGuests(userHousingGuests, offer.offer.guests, 0, 1, 2) &&
         getMapFilterFeatures(offer)
       ) {
-        newArray.push(offer)
+        newArrayValues.push(offer)
       }
-      if (newArray.length === 10) {
+      if (newArrayValues.length === MAX_LENGHT_ARRAY) {
         return true;
       }
-      getAdsThroughDebounce(newArray);
+      getAdsThroughDebounce(newArrayValues);
     })
   })
 }
