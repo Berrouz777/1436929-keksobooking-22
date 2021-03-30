@@ -1,6 +1,6 @@
 import { addressMarkerArray, createMarker } from './create-map.js';
 import { getMessageError, getMessageSuccess } from './show-message.js';
-import {sendData} from './API.js';
+import {sendData} from './api.js';
 
 const MIN_LENGHT_NAME = 30;
 const MAX_LENGHT_NAME = 100;
